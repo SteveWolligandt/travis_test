@@ -55,7 +55,6 @@ void TestClass<T>::foo() {
 }
 
 void foo(const int i) {
-  char *buffer = new char[1024];
   if (i == 42)
     std::cout << "the answer to all\n";
   else
