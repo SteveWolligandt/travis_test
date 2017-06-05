@@ -8,6 +8,8 @@ STD=-std=c++11
 WARN=-Wall -Wextra -pedantic
 OPTI=-O0 -g
 
+.PHONY: test test_results.xml cppcheck.xml cppcheck.html valgrind valgrind.report coverage
+
 all: test coverage cppcheck valgrind
 
 $(TEST_BIN): $(SRC) $(HEADERS)
