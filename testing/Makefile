@@ -44,10 +44,12 @@ coverage.combined: coverage.info
 coverage.lcov: coverage.combined
 	genhtml coverage.combined -o coverage_report
 
-coverage.gcovr: $(SRC) $(HEADERS)
+coverage.gcovr: $(COV_BIN)
+	./$(COV_BIN) > /dev/null
 	gcovr -e catch.hpp -e main.cpp --branches --xml-pretty -r . > coverage.xml
 
-coverage.gcovr.html: $(SRC) $(HEADERS)
+coverage.gcovr.html: $(COV_BIN)
+	./$(COV_BIN) > /dev/null
 	gcovr -e catch.hpp -e main.cpp --branches --html -r . -o coverage.html
 
 cppcheck: cppcheck.html
