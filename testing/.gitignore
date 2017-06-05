@@ -6,8 +6,10 @@ valgrind.report
 coverage.info
 coverage.baseline
 coverage.xml
+coverage.html
 cppcheck.xml
 test_results.xml
+valgrind.xml
 coverage.combined
 cppcheck_report/
 coverage_report/

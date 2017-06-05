@@ -8,7 +8,7 @@ STD=-std=c++11
 WARN=-Wall -Wextra -pedantic
 OPTI=-O0 -g
 
-.PHONY: test test_results.xml cppcheck.xml cppcheck.html valgrind valgrind.report coverage
+.PHONY: test test_results.xml cppcheck.xml cppcheck.html valgrind valgrind.report valgrind.xml coverage
 
 all: test coverage cppcheck valgrind
 
@@ -41,9 +41,14 @@ coverage.info: coverage.run
 coverage.combined: coverage.info
 	lcov -a coverage.baseline -a coverage.info -o $@
 
-coverage: coverage.combined
+coverage.lcov: coverage.combined
 	genhtml coverage.combined -o coverage_report
+
+coverage.gcovr:
 	gcovr -e catch.hpp -e main.cpp --branches --xml-pretty -r . > coverage.xml
+
+coverage.gcovr.html:
+	gcovr -e catch.hpp -e main.cpp --branches --html -r . -o coverage.html
 
 cppcheck: cppcheck.html
 
@@ -62,6 +67,9 @@ cppcheck_report/index.html: cppcheck.xml
 valgrind.report: $(TEST_BIN)
 	valgrind --leak-check=full --show-leak-kinds=all --log-file="valgrind.report" ./$(TEST_BIN)
 
+valgrind.xml: $(TEST_BIN)
+	valgrind --leak-check=full --show-leak-kinds=all --xml=yes --xml-file="valgrind.xml" ./$(TEST_BIN)
+
 valgrind: valgrind.report
 
 clean:
@@ -73,7 +81,9 @@ clean:
 	rm -f coverage.info
 	rm -f cppcheck.xml
 	rm -f test_results.xml
+	rm -f coverage.html
 	rm -f coverage.xml
+	rm -f valgrind.xml
 	rm -f coverage.baseline
 	rm -f coverage.combined
 	rm -rf cppcheck_report
