@@ -1,0 +1,12 @@
+*.gcda
+*.gcno
+travis_test
+travis_test_coverage
+valgrind.report
+coverage.info
+coverage.baseline
+cppcheck.xml
+test_results.xml
+coverage.combined
+cppcheck_report/
+coverage_report/
