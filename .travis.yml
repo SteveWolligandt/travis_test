@@ -1,6 +1,6 @@
 sudo : require
 language: cpp
-compiler: gcc
+# compiler: gcc
 before_install:
 - sudo pip install codecov
 
