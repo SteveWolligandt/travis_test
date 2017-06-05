@@ -1,0 +1,4 @@
+*.gcda
+*.gcno
+travis_test
+travis_test_coverage
