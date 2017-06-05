@@ -16,7 +16,7 @@ $(TEST_BIN): $(SRC) $(HEADERS)
 	$(CXX) -I.. $(OPTI) $(WARN) $(STD) -o $(TEST_BIN) $(SRC)
 
 $(COV_BIN): $(SRC) $(HEADERS)
-	$(CXX) -I.. $(OPTI) $(WARN) $(STD) -o $(COV_BIN) $(COVFLAGS) $(SRC)
+	$(CXX) -I.. $(OPTI) $(WARN) $(STD) -o $(COV_BIN) $(COVFLAGS) $(SRC) 2> /dev/null
 
 test_results.xml: $(TEST_BIN)
 	./$(TEST_BIN) -o test_results.xml -r junit
@@ -65,10 +65,11 @@ cppcheck_report/index.html: cppcheck.xml
 	cppcheck-htmlreport --source-dir=. --file=cppcheck.xml --report-dir=cppcheck_report
 
 valgrind.report: $(TEST_BIN)
-	valgrind --leak-check=full --show-leak-kinds=all --log-file="valgrind.report" ./$(TEST_BIN)
+	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=no --undef-value-errors=yes --track-origins=yes --child-silent-after-fork=no --trace-children=no --gen-suppressions=no --log-file="valgrind.report" ./$(TEST_BIN)
 
 valgrind.xml: $(TEST_BIN)
-	valgrind --leak-check=full --show-leak-kinds=all --xml=yes --xml-file="valgrind.xml" ./$(TEST_BIN)
+	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=no --undef-value-errors=yes --track-origins=yes --child-silent-after-fork=no --trace-children=no --gen-suppressions=no --xml=yes --xml-file=valgrind.xml $(TEST_BIN)
+
 
 valgrind: valgrind.report
 
