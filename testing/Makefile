@@ -41,7 +41,7 @@ coverage.combined: coverage.info
 
 coverage: coverage.combined
 	genhtml coverage.combined -o coverage_report
-	gcovr -e catch.hpp --branches --xml-pretty --root=. -r . > coverage.xml
+	gcovr -e catch.hpp -e main.cpp --branches --xml-pretty --root=. -r . > coverage.xml
 
 cppcheck: cppcheck.html
 

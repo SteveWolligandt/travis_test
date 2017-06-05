@@ -31,7 +31,6 @@ TestClass<T>::TestClass(const T& val)
 
 template <typename T>
 T& TestClass<T>::val() {
-  int i;
   return m_val;
 }
 
