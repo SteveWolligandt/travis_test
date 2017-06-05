@@ -8,7 +8,7 @@ STD=-std=c++11
 WARN=-Wall -Wextra -pedantic
 OPTI=-O0 -g
 
-.PHONY: test test_results.xml cppcheck.xml cppcheck.html valgrind valgrind.report valgrind.xml coverage
+.PHONY: test test_results.xml cppcheck.xml cppcheck.html valgrind valgrind.report valgrind.xml coverage coverage.gcovr
 
 all: test coverage cppcheck valgrind
 
@@ -69,7 +69,6 @@ valgrind.report: $(TEST_BIN)
 
 valgrind.xml: $(TEST_BIN)
 	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=no --undef-value-errors=yes --track-origins=yes --child-silent-after-fork=no --trace-children=no --gen-suppressions=no --xml=yes --xml-file=valgrind.xml $(TEST_BIN)
-
 
 valgrind: valgrind.report
 
