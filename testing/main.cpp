@@ -7,6 +7,8 @@
 TEST_CASE("test") {
   foo(42);
   foo(23);
+  bar(42);
+  bar(23);
 
   TestClass<double> t(1.0);
   TestClass<double> t_2;
