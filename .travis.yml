@@ -4,11 +4,6 @@ language: cpp
 before_install:
 - sudo pip install codecov
 
-script:
-  - make
-  - ./get_code_cov
-  - codecov
-
 addons:
   apt:
     sources:
@@ -16,6 +11,11 @@ addons:
     packages:
     - gcc-5
     - g++-5
+
+script:
+  - make
+  - ./get_code_cov
+  - codecov
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
