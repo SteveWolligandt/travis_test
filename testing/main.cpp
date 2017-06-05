@@ -4,12 +4,6 @@
 
 #include "catch.hpp"
 
-void foo(const int i) {
-  if (i == 42)
-    std::cout << "the answer to all\n";
-  else
-    std::cout << "no answer available\n";
-}
 
 TEST_CASE("test") {
   foo(42);

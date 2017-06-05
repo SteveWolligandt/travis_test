@@ -8,7 +8,7 @@ STD=-std=c++11
 WARN=-Wall -Wextra -pedantic
 OPTI=-O0 -g
 
-all: test codecoverage cppcheck valgrind
+all: test coverage cppcheck valgrind
 
 $(TEST_BIN): $(SRC) $(HEADERS)
 	$(CXX) -I.. $(OPTI) $(WARN) $(STD) -o $(TEST_BIN) $(SRC)
@@ -21,24 +21,27 @@ test_results.xml: $(TEST_BIN)
 
 test: test_results.xml
 
-coverage.baseline:
-	lcov -c -i -d . -o coverage.baseline
-	lcov --remove coverage.baseline '/usr/*' --output-file coverage.baseline
-	lcov --remove coverage.baseline 'catch.*' --output-file coverage.baseline
+coverage.baseline: $(COV_BIN)
+	lcov -c -i -d . -o $@
+	lcov --remove $@ '/usr/*' --output-file $@
+	lcov --remove $@ 'catch.*' --output-file $@
+	lcov --remove $@ 'testing/*' --output-file $@
 
-codecoverage.run:
+coverage.run: coverage.baseline
 	./$(COV_BIN) > /dev/null
 
-coverage.info:
-	lcov -c -d . -o coverage.info
-	lcov --remove coverage.info '/usr/*' --output-file coverage.info
-	lcov --remove coverage.info 'catch.*' --output-file coverage.info
+coverage.info: coverage.run
+	lcov -c -d . -o $@
+	lcov --remove $@ '/usr/*' --output-file $@
+	lcov --remove $@ 'catch.*' --output-file $@
+	lcov --remove $@ 'testing/*' --output-file $@
 
-coverage.combined:
-	lcov -a coverage.baseline -a coverage.info -o coverage.combined
+coverage.combined: coverage.info
+	lcov -a coverage.baseline -a coverage.info -o $@
 
-codecoverage: $(COV_BIN) coverage.baseline codecoverage.run coverage.info coverage.combined
+coverage: coverage.combined
 	genhtml coverage.combined -o coverage_report
+	gcovr -e catch.hpp --branches --xml-pretty --root=. -r . > coverage.xml
 
 cppcheck: cppcheck.html
 
@@ -68,6 +71,7 @@ clean:
 	rm -f coverage.info
 	rm -f cppcheck.xml
 	rm -f test_results.xml
+	rm -f coverage.xml
 	rm -f coverage.baseline
 	rm -f coverage.combined
 	rm -rf cppcheck_report

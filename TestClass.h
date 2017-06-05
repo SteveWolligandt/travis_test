@@ -55,4 +55,11 @@ void TestClass<T>::foo() {
   std::cout << "bla\n";
 }
 
+void foo(const int i) {
+  if (i == 42)
+    std::cout << "the answer to all\n";
+  else
+    std::cout << "no answer available\n";
+}
+
 #endif

@@ -5,6 +5,7 @@ travis_test_coverage
 valgrind.report
 coverage.info
 coverage.baseline
+coverage.xml
 cppcheck.xml
 test_results.xml
 coverage.combined
