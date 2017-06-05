@@ -6,6 +6,6 @@ int main() {
   std::cout << t.val() << '\n';
   t.val() = 2.0;
   std::cout << t.val() << '\n';
-  t.set_val(3.0);
+  t.set_val(4.0);
   std::cout << t.val() << '\n';
 }
