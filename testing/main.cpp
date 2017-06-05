@@ -27,4 +27,6 @@ TEST_CASE("test") {
 
   REQUIRE(t.get_val() == 4.0);
   REQUIRE(val == 4.0);
+
+  char* buffer = new char[1024];
 }
