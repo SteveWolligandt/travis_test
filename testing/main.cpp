@@ -5,6 +5,10 @@
 #include "catch.hpp"
 
 
+void leak() {
+  char* buffer = new char[1024];
+}
+
 TEST_CASE("test") {
   foo(42);
   foo(23);
@@ -28,5 +32,5 @@ TEST_CASE("test") {
   REQUIRE(t.get_val() == 4.0);
   REQUIRE(val == 4.0);
 
-  char* buffer = new char[1024];
+  leak();
 }
