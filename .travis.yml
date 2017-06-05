@@ -9,5 +9,13 @@ script:
   - ./get_code_cov
   - codecov
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+
 after_success:
 - bash <(curl -s https://codecov.io/bash)
