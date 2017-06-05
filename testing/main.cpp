@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "TestClass.h"
+#include "../TestClass.h"
 
 #include "catch.hpp"
 

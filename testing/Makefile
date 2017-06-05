@@ -1,7 +1,7 @@
 CXX=g++-5
 TEST_BIN=travis_test
 COV_BIN=travis_test_coverage
-COVFLAGS=-fprofile-arcs -ftest-coverage --coverage -fno-inline -fno-inline-small-functions -fno-default-inline
+COVFLAGS=-fprofile-arcs -ftest-coverage -fPIC --coverage -fno-inline -fno-inline-small-functions -fno-default-inline
 SRC=main.cpp catch.cpp
 HEADERS=../TestClass.h
 STD=-std=c++11
@@ -41,7 +41,7 @@ coverage.combined: coverage.info
 
 coverage: coverage.combined
 	genhtml coverage.combined -o coverage_report
-	gcovr -e catch.hpp -e main.cpp --branches --xml-pretty --root=. -r . > coverage.xml
+	gcovr -e catch.hpp -e main.cpp --branches --xml-pretty -r . > coverage.xml
 
 cppcheck: cppcheck.html
 
